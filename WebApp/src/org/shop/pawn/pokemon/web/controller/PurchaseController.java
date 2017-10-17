@@ -3,6 +3,7 @@ package org.shop.pawn.pokemon.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.shop.pawn.pokemon.business.OrderProcessingServiceBean;
 import org.shop.pawn.pokemon.business.model.Item;
 import org.shop.pawn.pokemon.business.view.Inventory;
 import org.shop.pawn.pokemon.business.view.InventoryService;
@@ -33,10 +34,13 @@ public class PurchaseController {
 	
 	@RequestMapping(path = "/submitItems", method = RequestMethod.POST)
 	public String submitItems(@ModelAttribute("order") Order order, HttpServletRequest request) {
-		if (order.isValid()) {
+		OrderProcessingServiceBean orderProcessingService = ServiceLocator.getOrderProcessingService();
+		boolean isValid = orderProcessingService.validateItemAvailability(order);
+		if (isValid) {
 			request.getSession().setAttribute("order", order);
 			return "redirect:/purchase/paymentEntry";
 		}else {
+			// TODO Render message asking to redo item quantities
 			return "redirect:/purchase";
 		}
 	}
@@ -106,8 +110,9 @@ public class PurchaseController {
 	}	
 
 	@RequestMapping(path = "/confirmOrder", method = RequestMethod.POST)
-	public String confirmOrder(HttpServletRequest request) {
-		String orderNumber = Integer.toString(1000 + (int)(Math.random() * ((9999 - 1000) + 1)));
+	public String confirmOrder(@ModelAttribute("order") Order order, HttpServletRequest request) {
+		OrderProcessingServiceBean orderProcessingService = ServiceLocator.getOrderProcessingService();
+		String orderNumber = orderProcessingService.processOrder(order);
 		request.getSession().setAttribute("orderNumber", orderNumber);
 		return "OrderConfirmation";
 	}
