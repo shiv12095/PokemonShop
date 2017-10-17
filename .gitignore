@@ -33,9 +33,7 @@ local.properties
 .recommenders
 
 # eclipse project file
-.settings/
 .classpath
-.project
 
 # Locally stored "Eclipse launch configurations"
 *.launch
