@@ -1,7 +1,9 @@
-package org.shop.pawn.pokemon.model;
+package org.shop.pawn.pokemon.business.model;
 
+import java.io.Serializable;
 
-public class Item {
+@SuppressWarnings("serial")
+public class Item implements Serializable{
 
 	private String name;
 	private String quantity;
@@ -47,4 +49,5 @@ public class Item {
 		}
 		return true;
 	}
+	
 }

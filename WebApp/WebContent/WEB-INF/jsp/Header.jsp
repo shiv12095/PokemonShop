@@ -26,3 +26,5 @@
 
 <!-- Material Design Lite JavaScript -->
 <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>

@@ -18,70 +18,66 @@
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--1-col"></div>
 		<div class="mdl-cell mdl-cell--10-col">
-			<form:form id="orderForm" action="purchase/submitItems" method="POST"
-				modelAttribute="order">
+			<form id="orderForm">
 
 				<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%;">
 					<tr>
 						<th class="mdl-data-table__cell--non-numeric">Pokemon</th>
-						<th>Quantity</th>
+						<th class="mdl-data-table__cell">Quantity</th>
 					</tr>
-					<tr>
-						<td data-label="Pokemon" class="mdl-data-table__cell--non-numeric">${order.items[0].name}</td>
-						<td data-label="Quantity"><form:input
-								path="items[0].quantity" type="text" value="0" /> <form:input
-								path="items[0].name" type="hidden" /></td>
-					</tr>
+					
+					<c:forEach var="item" items="${inventory.items}" varStatus="status">
+						<tr>
+						    <td data-label="Pokemon" class="mdl-data-table__cell--non-numeric" id ="input-label-${status.index}">${item.name}</td>
+						    	<td>
+						    		<input class="input-field" type="text" value=0></input>
+						    	</td>
+						</tr>
+					</c:forEach>			
 
-					<tr>
-						<td data-label="Pokemon" class="mdl-data-table__cell--non-numeric">${order.items[1].name}</td>
-						<td data-label="Quantity"><form:input
-								path="items[1].quantity" type="text" value="0" /> <form:input
-								path="items[1].name" type="hidden" /></td>
-					</tr>
-
-					<tr>
-						<td data-label="Pokemon" class="mdl-data-table__cell--non-numeric">${order.items[2].name}</td>
-						<td data-label="Quantity"><form:input
-								path="items[2].quantity" type="text" value="0" /> <form:input
-								path="items[2].name" type="hidden" /></td>
-					</tr>
-
-					<tr>
-						<td data-label="Pokemon" class="mdl-data-table__cell--non-numeric">${order.items[3].name}</td>
-						<td data-label="Quantity"><form:input
-								path="items[3].quantity" type="text" value="0" /> <form:input
-								path="items[3].name" type="hidden" /></td>
-					</tr>
-
-
-					<tr>
-						<td data-label="Pokemon" class="mdl-data-table__cell--non-numeric">${order.items[4].name}</td>
-						<td data-label="Quantity"><form:input
-								path="items[4].quantity" type="text" value="0" /> <form:input
-								path="items[4].name" type="hidden" /></td>
-					</tr>
-
-
-					<tr>
-						<td data-label="Pokemon" class="mdl-data-table__cell--non-numeric">${order.items[5].name}</td>
-						<td data-label="Quantity"><form:input
-								path="items[5].quantity" type="text" value="0" /> <form:input
-								path="items[5].name" type="hidden" /></td>
-					</tr>
-
-				</table>
-
-				<button
-					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-					Submit</button>
-
-			</form:form>
-		</div>
+				</table>		
+			</form>
+			<button
+				id="submit"
+				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+				Submit
+			</button>
 		<div class="mdl-cell mdl-cell--1-col"></div>
 	</div>
 	</main>
 <jsp:include page="../Footer.jsp" />
 </div>
 </body>
+
+ <script type="text/javascript">
+      $(document).ready(function() {
+	    	  $('#submit').click(function () {
+	    		  var data = [];
+	    		  i = 0;
+	    		  $(".input-field").each(function(elem, i) {
+	    			    var val = $(this).val();
+	    			    console.log(val);
+					if(val > 0){
+						var id = "input-label-" + i;
+						console.log(i);						
+						var name = $("#" + id).val();
+						data.push({
+							"name": name,
+							"quantity": val
+						});
+					}
+    			 	 });
+	    		  console.log(data);
+/* 	          $.ajax({
+	              type: "post",
+	              url: "testme", //this is my servlet
+	              data: "input=" +$('#ip').val()+"&output="+$('#op').val(),
+	              success: function(msg){      
+	                      $('#output').append(msg);
+	              }
+	          }); */
+		  });
+      });
+  </script>
+
 </html>

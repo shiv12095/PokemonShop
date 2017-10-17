@@ -3,8 +3,9 @@ package org.shop.pawn.pokemon.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.shop.pawn.pokemon.business.model.Item;
+import org.shop.pawn.pokemon.business.view.Inventory;
 import org.shop.pawn.pokemon.business.view.InventoryService;
-import org.shop.pawn.pokemon.model.Item;
 import org.shop.pawn.pokemon.model.Order;
 import org.shop.pawn.pokemon.model.PaymentInfo;
 import org.shop.pawn.pokemon.model.ShippingInfo;
@@ -18,20 +19,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/purchase")
 public class PurchaseController {
 
+	private InventoryService inventoryService = ServiceLocator.getInventoryService();
+	
 	@RequestMapping(method = RequestMethod.GET)
-	public String viewOrderEntryPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		InventoryService service = ServiceLocator.getInventoryService();
-		
+	public String viewOrderEntryPage(HttpServletRequest request, HttpServletResponse response) throws Exception {		
+		Inventory inventory = inventoryService.getAvailableInventory();
 		Order order = new Order();
 
-		order.add(new Item("mewtwo"));
-		order.add(new Item("pikachu"));
-		order.add(new Item("charmander"));
-		order.add(new Item("meowth"));
-		order.add(new Item("bulbasaur"));
-		order.add(new Item("squirtle"));
-
 		request.setAttribute("order", order);
+		request.setAttribute("inventory", inventory);		
 		return "form/OrderEntryForm";
 	}
 	
