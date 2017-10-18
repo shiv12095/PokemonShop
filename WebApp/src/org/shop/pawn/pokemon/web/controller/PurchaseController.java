@@ -40,9 +40,10 @@ public class PurchaseController {
 		boolean isValid = orderProcessingService.validateItemAvailability(order);
 		if (isValid) {
 			request.getSession().setAttribute("order", order);
+			request.getSession().setAttribute("error", "f");
 			return "redirect:/purchase/paymentEntry";
-		}else {
-			// TODO Render message asking to redo item quantities
+		} else {
+			request.getSession().setAttribute("error", "t");
 			return "redirect:/purchase";
 		}
 	}

@@ -18,6 +18,9 @@
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--1-col"></div>
 		<div class="mdl-cell mdl-cell--10-col">
+			<c:if test="${error eq 't'}">
+				<h1>ERROR: Invalid quantities</h1>
+			</c:if>
 			<form:form id="orderForm"  action="purchase/submitItems" method="POST" modelAttribute="order">
 
 				<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%;">
