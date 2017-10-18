@@ -13,6 +13,7 @@ import org.shop.pawn.pokemon.model.ShippingInfo;
 import org.shop.pawn.pokemon.utils.ServiceLocator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,7 +27,8 @@ public class PurchaseController {
 	public String viewOrderEntryPage(HttpServletRequest request, HttpServletResponse response) throws Exception {		
 		Inventory inventory = inventoryService.getAvailableInventory();
 		Order order = new Order();
-
+		order.setItems(inventory.getItems());
+		
 		request.setAttribute("order", order);
 		request.setAttribute("inventory", inventory);		
 		return "form/OrderEntryForm";

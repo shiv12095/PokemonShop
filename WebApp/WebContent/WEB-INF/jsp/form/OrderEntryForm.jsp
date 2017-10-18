@@ -18,7 +18,7 @@
 	<div class="mdl-grid">
 		<div class="mdl-cell mdl-cell--1-col"></div>
 		<div class="mdl-cell mdl-cell--10-col">
-			<form id="orderForm">
+			<form:form id="orderForm"  action="purchase/submitItems" method="POST" modelAttribute="order">
 
 				<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%;">
 					<tr>
@@ -26,58 +26,28 @@
 						<th class="mdl-data-table__cell">Quantity</th>
 					</tr>
 					
-					<c:forEach var="item" items="${inventory.items}" varStatus="status">
+					<c:forEach var="item" items="${order.items}" varStatus="status">
 						<tr>
 						    <td data-label="Pokemon" class="mdl-data-table__cell--non-numeric" id ="input-label-${status.index}">${item.name}</td>
-						    	<td>
-						    		<input class="input-field" type="text" value=0></input>
-						    	</td>
+							<td data-label="Quantity">
+								<form:input path="items[${status.index}].quantity" type="text" value="0" /> 
+								<form:input path="items[${status.index}].name" type="hidden" />
+							</td>
 						</tr>
 					</c:forEach>			
-
 				</table>		
-			</form>
+
 			<button
-				id="submit"
 				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
 				Submit
 			</button>
+				
+			</form:form>
 		<div class="mdl-cell mdl-cell--1-col"></div>
 	</div>
 	</main>
 <jsp:include page="../Footer.jsp" />
 </div>
 </body>
-
- <script type="text/javascript">
-      $(document).ready(function() {
-	    	  $('#submit').click(function () {
-	    		  var data = [];
-	    		  i = 0;
-	    		  $(".input-field").each(function(elem, i) {
-	    			    var val = $(this).val();
-	    			    console.log(val);
-					if(val > 0){
-						var id = "input-label-" + i;
-						console.log(i);						
-						var name = $("#" + id).val();
-						data.push({
-							"name": name,
-							"quantity": val
-						});
-					}
-    			 	 });
-	    		  console.log(data);
-/* 	          $.ajax({
-	              type: "post",
-	              url: "testme", //this is my servlet
-	              data: "input=" +$('#ip').val()+"&output="+$('#op').val(),
-	              success: function(msg){      
-	                      $('#output').append(msg);
-	              }
-	          }); */
-		  });
-      });
-  </script>
 
 </html>
