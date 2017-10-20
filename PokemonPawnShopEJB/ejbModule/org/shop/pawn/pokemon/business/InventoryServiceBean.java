@@ -1,9 +1,12 @@
 package org.shop.pawn.pokemon.business;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.shop.pawn.pokemon.business.model.Item;
 import org.shop.pawn.pokemon.business.view.Inventory;
@@ -16,6 +19,9 @@ import org.shop.pawn.pokemon.business.view.InventoryService;
 @Remote(InventoryService.class)
 public class InventoryServiceBean implements InventoryService {
 
+	@PersistenceContext
+	EntityManager entityManager;
+	
 	/**
 	 * Default constructor.
 	 */
@@ -25,13 +31,15 @@ public class InventoryServiceBean implements InventoryService {
 
 	@Override
 	public Inventory getAvailableInventory() {
+		List<Item> list = entityManager.createQuery("SELECT i FROM Item i ", Item.class).getResultList();
 		Inventory inventory = new Inventory();
-		inventory.add(new Item("mewtwo"));
-		inventory.add(new Item("pikachu"));
-		inventory.add(new Item("charmander"));
-		inventory.add(new Item("meowth"));
-		inventory.add(new Item("bulbasaur"));
-		inventory.add(new Item("squirtle"));
+		inventory.setItems(list);
+//		inventory.add(new Item("mewtwo"));
+//		inventory.add(new Item("pikachu"));
+//		inventory.add(new Item("charmander"));
+//		inventory.add(new Item("meowth"));
+//		inventory.add(new Item("bulbasaur"));
+//		inventory.add(new Item("squirtle"));
 		return inventory;
 	}
 

@@ -2,10 +2,26 @@ package org.shop.pawn.pokemon.business.model;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
-public class Item implements Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@SuppressWarnings("serial")
+@Entity
+@Table(name="ITEM")
+public class Item implements Serializable{
+	
+	@Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID")
+	private int id;
+
+	@Column(name="NAME")
 	private String name;
+
+	@Column(name="AVAILABLE_QUANTITY")
 	private String quantity;
 
 	public Item() {
