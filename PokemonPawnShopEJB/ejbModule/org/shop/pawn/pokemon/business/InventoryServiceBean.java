@@ -20,7 +20,7 @@ import org.shop.pawn.pokemon.business.view.InventoryService;
 public class InventoryServiceBean implements InventoryService {
 
 	@PersistenceContext
-	EntityManager entityManager;
+	private EntityManager entityManager;
 
 	static String QUERY = "SELECT i FROM Item i ";
 
@@ -33,7 +33,7 @@ public class InventoryServiceBean implements InventoryService {
 
 	@Override
 	public Inventory getAvailableInventory() {
-		List<Item> list = entityManager.createQuery(QUERY, Item.class).getResultList();
+		List<Item> list = getEntityManager().createQuery(QUERY, Item.class).getResultList();
 		Inventory inventory = new Inventory();
 		inventory.setItems(list);
 		return inventory;
@@ -49,6 +49,14 @@ public class InventoryServiceBean implements InventoryService {
 	public boolean updateInventory(Collection<Item> items) {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
 
 }
