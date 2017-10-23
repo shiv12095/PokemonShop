@@ -21,7 +21,9 @@ public class InventoryServiceBean implements InventoryService {
 
 	@PersistenceContext
 	EntityManager entityManager;
-	
+
+	static String QUERY = "SELECT i FROM Item i ";
+
 	/**
 	 * Default constructor.
 	 */
@@ -31,15 +33,9 @@ public class InventoryServiceBean implements InventoryService {
 
 	@Override
 	public Inventory getAvailableInventory() {
-		List<Item> list = entityManager.createQuery("SELECT i FROM Item i ", Item.class).getResultList();
+		List<Item> list = entityManager.createQuery(QUERY, Item.class).getResultList();
 		Inventory inventory = new Inventory();
 		inventory.setItems(list);
-//		inventory.add(new Item("mewtwo"));
-//		inventory.add(new Item("pikachu"));
-//		inventory.add(new Item("charmander"));
-//		inventory.add(new Item("meowth"));
-//		inventory.add(new Item("bulbasaur"));
-//		inventory.add(new Item("squirtle"));
 		return inventory;
 	}
 

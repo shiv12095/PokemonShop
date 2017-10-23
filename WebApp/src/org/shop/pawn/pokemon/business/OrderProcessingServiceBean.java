@@ -25,6 +25,8 @@ public class OrderProcessingServiceBean {
 
 	public String processOrder(Order order) {
 		InventoryService inventoryService = ServiceLocator.getInventoryService();
+		entityManager.persist(order);
+		entityManager.flush();
 		/*
 		 * TODO CREATE AN ADAPTER CLASS TO CONVERT LINE ITEM TO ITEM AND VICE VERSA
 		 */
@@ -41,7 +43,7 @@ public class OrderProcessingServiceBean {
 		/*
 		 * TODO CREATE AN ADAPTER CLASS TO CONVERT LINE ITEM TO ITEM AND VICE VERSA
 		 */		
-		InventoryService inventoryService = ServiceLocator.getInventoryService();
+		//InventoryService inventoryService = ServiceLocator.getInventoryService();
 		// return inventoryService.validateQuantity(order.getItems());
 		return true;
 	}
