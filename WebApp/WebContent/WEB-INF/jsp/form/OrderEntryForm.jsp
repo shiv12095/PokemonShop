@@ -21,7 +21,7 @@
 			<c:if test="${error eq 't'}">
 				<h1>ERROR: Invalid quantities</h1>
 			</c:if>
-			<form:form id="orderForm"  action="purchase/submitItems" method="POST" modelAttribute="order">
+			<form:form id="orderForm"  action="purchase/submitItems" method="POST" modelAttribute="inventory">
 
 				<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width: 100%;">
 					<tr>
@@ -29,7 +29,7 @@
 						<th class="mdl-data-table__cell">Quantity</th>
 					</tr>
 					
-					<c:forEach var="item" items="${order.items}" varStatus="status">
+					<c:forEach var="item" items="${inventory.items}" varStatus="status">
 						<tr>
 						    <td data-label="Pokemon" class="mdl-data-table__cell--non-numeric" id ="input-label-${status.index}">${item.name}</td>
 							<td data-label="Quantity">

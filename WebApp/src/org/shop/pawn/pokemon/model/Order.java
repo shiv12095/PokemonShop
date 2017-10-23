@@ -37,10 +37,10 @@ public class Order {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="CUSTOMER_ORDER_ID_FK")
-	private List<LineItem> items;
+	private List<LineItem> items = new ArrayList<>();
 	
 	public Order() {
-		this.items = new ArrayList<LineItem>();
+		
 	}
 
 	public List<LineItem> getItems() {
