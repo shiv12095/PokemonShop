@@ -17,7 +17,7 @@ import org.shop.pawn.pokemon.utils.ServiceLocator;
 public class OrderProcessingServiceBean {
 
 	@PersistenceContext
-	EntityManager entityManager;
+	private EntityManager entityManager;
 	
 	public OrderProcessingServiceBean() {
 		// TODO Auto-generated constructor stub
@@ -25,8 +25,8 @@ public class OrderProcessingServiceBean {
 
 	public String processOrder(Order order) {
 		InventoryService inventoryService = ServiceLocator.getInventoryService();
-		entityManager.persist(order);
-		entityManager.flush();
+		getEntityManager().persist(order);
+		getEntityManager().flush();
 		/*
 		 * TODO CREATE AN ADAPTER CLASS TO CONVERT LINE ITEM TO ITEM AND VICE VERSA
 		 */
@@ -46,5 +46,13 @@ public class OrderProcessingServiceBean {
 		//InventoryService inventoryService = ServiceLocator.getInventoryService();
 		// return inventoryService.validateQuantity(order.getItems());
 		return true;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
 }

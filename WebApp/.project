@@ -3,6 +3,7 @@
 	<name>PokemonPawnShop</name>
 	<comment></comment>
 	<projects>
+		<project>PokemonPawnShopEJB</project>
 		<project>PokemonPawnShopEJBClient</project>
 	</projects>
 	<buildSpec>
