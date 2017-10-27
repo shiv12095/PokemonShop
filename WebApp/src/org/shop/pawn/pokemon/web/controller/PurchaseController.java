@@ -104,13 +104,20 @@ public class PurchaseController {
 		
 		request.getSession().setAttribute("shippingInfo", stringBuidler.toString());
 		
+		order.setCustomerName(paymentInfo.getCardHolderName());
+		order.setPayment(paymentInfo);
+		order.setShipping(shippingInfo);
+		//TODO: order.setCustomerEmail("");
+		request.getSession().setAttribute("order", order);
+		
 		return "ViewOrder";
 	}	
 
 	@RequestMapping(path = "/confirmOrder", method = RequestMethod.POST)
-	public String confirmOrder(@ModelAttribute("order") Order order, HttpServletRequest request) {
+	public String confirmOrder(HttpServletRequest request) {
 		OrderProcessingServiceBean orderProcessingService = ServiceLocator.getOrderProcessingService();
-		String orderNumber = orderProcessingService.processOrder(order);
+		Order orderFromRequest = (Order) request.getSession().getAttribute("order");
+		String orderNumber = orderProcessingService.processOrder(orderFromRequest);
 		request.getSession().setAttribute("orderNumber", orderNumber);
 		return "OrderConfirmation";
 	}

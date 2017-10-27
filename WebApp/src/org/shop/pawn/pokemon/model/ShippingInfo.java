@@ -34,7 +34,7 @@ public class ShippingInfo {
 	@Column(name="STATE")
 	private String state;
 
-	@Column(name="ZIP_CODE")
+	@Column(name="ZIPCODE")
 	private String zipCode;
 
 	public String getAddressLine1() {

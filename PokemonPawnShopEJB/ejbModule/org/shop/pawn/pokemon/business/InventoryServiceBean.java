@@ -41,8 +41,22 @@ public class InventoryServiceBean implements InventoryService {
 
 	@Override
 	public boolean validateQuantity(Collection<Item> items) {
-		// TODO Auto-generated method stub
-		return true;
+		boolean isValid = true;
+		Inventory inventory = getAvailableInventory();
+		
+		for (Item userItem : items) {
+			for (Item inventoryItem : inventory.getItems()) {
+				if (userItem.getName().equals(inventoryItem.getName())) {
+					if (Integer.parseInt(userItem.getQuantity()) > Integer.parseInt(inventoryItem.getQuantity())) {
+						isValid = false;
+						break;
+					}
+				}
+			}
+		}
+		
+		
+		return isValid;
 	}
 
 	@Override

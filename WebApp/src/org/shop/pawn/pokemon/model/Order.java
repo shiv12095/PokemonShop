@@ -35,6 +35,10 @@ public class Order {
 	@JoinColumn(name="PAYMENT_INFO_ID_FK")
 	private PaymentInfo payment;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="SHIPPING_INFO_ID_FK")
+	private ShippingInfo shipping;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="CUSTOMER_ORDER_ID_FK")
 	private List<LineItem> items = new ArrayList<>();
@@ -85,6 +89,14 @@ public class Order {
 
 	public void setPayment(PaymentInfo payment) {
 		this.payment = payment;
+	}
+	
+	public ShippingInfo getShipping() {
+		return shipping;
+	}
+	
+	public void setShipping(ShippingInfo shipping) {
+		this.shipping = shipping;
 	}
 
 	public boolean isValid() {

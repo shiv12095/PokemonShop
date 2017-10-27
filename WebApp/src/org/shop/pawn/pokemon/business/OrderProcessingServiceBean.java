@@ -25,8 +25,12 @@ public class OrderProcessingServiceBean {
 
 	public String processOrder(Order order) {
 		InventoryService inventoryService = ServiceLocator.getInventoryService();
+		int orderNumber = 1000 + (int) (Math.random() * ((9999 - 1000) + 1));
+		order.setId(orderNumber);
 		getEntityManager().persist(order);
 		getEntityManager().flush();
+		
+		
 		/*
 		 * TODO CREATE AN ADAPTER CLASS TO CONVERT LINE ITEM TO ITEM AND VICE VERSA
 		 */
@@ -36,7 +40,7 @@ public class OrderProcessingServiceBean {
 		// if (!quantityValid || !inventoryUpdated) {
 		// return "Error";
 		// }
-		return Integer.toString(1000 + (int) (Math.random() * ((9999 - 1000) + 1)));
+		return Integer.toString(orderNumber);
 	}
 
 	public boolean validateItemAvailability(Order order) {
