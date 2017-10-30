@@ -68,7 +68,7 @@ public class InventoryServiceBean implements InventoryService {
 				return false;
 			}
 			tempItem.setQuantity(Integer.toString(newQuantity));
-			entityManager.persist(item);
+			entityManager.persist(tempItem);
 		}
 		entityManager.flush();
 		return true;
