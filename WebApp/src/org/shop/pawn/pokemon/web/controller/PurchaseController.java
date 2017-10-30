@@ -1,5 +1,8 @@
 package org.shop.pawn.pokemon.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,6 +35,15 @@ public class PurchaseController {
 	@RequestMapping(path = "/submitItems", method = RequestMethod.POST)
 	public String submitItems(@ModelAttribute("order") Order order, HttpServletRequest request) {
 		OrderProcessingServiceBean orderProcessingService = ServiceLocator.getOrderProcessingService();
+		List<LineItem> tempList = new ArrayList<LineItem>();
+		for(LineItem listItem : order.getItems()) {
+			if(listItem.getQuantity() > 0) {
+				listItem.setItemId(listItem.getId());
+				listItem.setId(0);
+				tempList.add(listItem);
+			}
+		}
+		order.setItems(tempList);		
 		boolean isValid = orderProcessingService.validateItemAvailability(order);
 		if (isValid) {
 			request.getSession().setAttribute("order", order);

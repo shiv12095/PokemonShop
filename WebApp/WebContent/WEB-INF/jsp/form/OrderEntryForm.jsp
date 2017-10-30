@@ -35,6 +35,7 @@
 							<td data-label="Quantity">
 								<form:input path="items[${status.index}].quantity" type="text" value="0" /> 
 								<form:input path="items[${status.index}].name" type="hidden" />
+								<form:input path="items[${status.index}].id" type="hidden" />							
 							</td>
 						</tr>
 					</c:forEach>			
