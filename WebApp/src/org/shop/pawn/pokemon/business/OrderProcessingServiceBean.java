@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.xml.ws.WebServiceRef;
 
 import org.shop.pawn.pokemon.business.model.Item;
 import org.shop.pawn.pokemon.business.model.LineItem;
@@ -14,6 +15,9 @@ import org.shop.pawn.pokemon.business.view.InventoryService;
 import org.shop.pawn.pokemon.model.Order;
 import org.shop.pawn.pokemon.utils.LineItemAdapter;
 import org.shop.pawn.pokemon.utils.ServiceLocator;
+
+import com.chase.payment.CreditCardPayment;
+import com.chase.payment.PaymentProcessorService;
 
 /**
  * Session Bean implementation class OrderProcessingServiceBean
@@ -25,6 +29,9 @@ public class OrderProcessingServiceBean {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	@WebServiceRef(wsdlLocation = "http://localhost:9080/ChaseBankApplication/PaymentProcessorService?wsdl")
+	private PaymentProcessorService service;
+
 	public OrderProcessingServiceBean() {
 		// TODO Auto-generated constructor stub
 	}
@@ -34,6 +41,15 @@ public class OrderProcessingServiceBean {
 		List<Item> items = new ArrayList<Item>();
 		for (LineItem listItem : order.getItems()) {
 			items.add(LineItemAdapter.getItem(listItem));
+		}
+		
+		CreditCardPayment ccPayment = new CreditCardPayment();
+		ccPayment.setCardNumber(order.getPayment().getCreditCardNumber());
+		int confirmationNumber = Integer.parseInt(service.getPaymentProcessorPort().processPayment(ccPayment));
+		if (confirmationNumber < 0) {
+			return "PaymentError";
+		} else {
+			order.getPayment().setConfirmationNumber(Integer.toString(confirmationNumber));
 		}
 
 		boolean quantityValid = inventoryService.validateQuantity(items);
