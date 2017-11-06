@@ -27,6 +27,17 @@ public class PaymentInfo {
 
 	@Column(name="CVV")
 	private String cvvCode;
+	
+	@Column(name="CONFIRMATION_NUMBER")
+	private String confirmationNumber;
+
+	public String getConfirmationNumber() {
+		return confirmationNumber;
+	}
+
+	public void setConfirmationNumber(String confirmationNumber) {
+		this.confirmationNumber = confirmationNumber;
+	}
 
 	public String getCreditCardNumber() {
 		return creditCardNumber;
