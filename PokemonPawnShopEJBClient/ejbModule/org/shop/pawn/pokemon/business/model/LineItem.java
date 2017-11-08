@@ -33,9 +33,6 @@ public class LineItem implements Serializable{
 	@Column(name="ITEM_QUANTITY")
 	private int quantity;
 	
-	@Column(name="CUSTOMER_ORDER_ID_FK")
-	private int orderId;
-	
 	public int getId() {
 		return id;
 	}
@@ -58,14 +55,6 @@ public class LineItem implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
 	}
 
 	public int getQuantity() {

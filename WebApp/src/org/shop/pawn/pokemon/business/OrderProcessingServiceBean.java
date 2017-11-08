@@ -46,6 +46,7 @@ public class OrderProcessingServiceBean {
 		CreditCardPayment ccPayment = new CreditCardPayment();
 		ccPayment.setCardNumber(order.getPayment().getCreditCardNumber());
 		int confirmationNumber = Integer.parseInt(service.getPaymentProcessorPort().processPayment(ccPayment));
+		confirmationNumber = Math.abs(confirmationNumber);
 		if (confirmationNumber < 0) {
 			return "PaymentError";
 		} else {
@@ -58,7 +59,6 @@ public class OrderProcessingServiceBean {
 			return "Error";
 		} else {
 			int orderNumber = 1000 + (int) (Math.random() * ((9999 - 1000) + 1));
-			order.setId(orderNumber);
 			entityManager.persist(order);
 			entityManager.flush();
 			return Integer.toString(orderNumber);			
