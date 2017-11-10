@@ -57,7 +57,7 @@ public class OrderProcessingServiceBean {
 		for (LineItem listItem : order.getItems()) {
 			items.add(LineItemAdapter.getItem(listItem));
 		}
-		
+		order.setCustomerEmail("abc@example.com");
 		CreditCardPayment ccPayment = new CreditCardPayment();
 		ccPayment.setCardNumber(order.getPayment().getCreditCardNumber());
 		int confirmationNumber = Integer.parseInt(service.getPaymentProcessorPort().processPayment(ccPayment));
@@ -76,6 +76,7 @@ public class OrderProcessingServiceBean {
 			int orderNumber = 1000 + (int) (Math.random() * ((9999 - 1000) + 1));
 			entityManager.persist(order);
 			entityManager.flush();
+			notifyUser(order.getCustomerEmail());
 			return Integer.toString(orderNumber);			
 		}
 	}
