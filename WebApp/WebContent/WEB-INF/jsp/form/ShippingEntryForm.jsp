@@ -36,6 +36,10 @@
 				<td class="mdl-data-table__cell--non-numeric">Zip Code:</td>
 				<td class="mdl-data-table__cell--non-numeric"><form:input path="zipCode"/></td>
 			</tr>
+			<tr>
+				<td class="mdl-data-table__cell--non-numeric">Email Address:</td>
+				<td class="mdl-data-table__cell--non-numeric"><form:input path="customerEmail"/></td>
+			</tr>
 		</table>
 		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
 			Submit

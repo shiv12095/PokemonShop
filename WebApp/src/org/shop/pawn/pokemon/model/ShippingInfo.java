@@ -36,6 +36,8 @@ public class ShippingInfo {
 
 	@Column(name="ZIPCODE")
 	private String zipCode;
+	
+	private String customerEmail;
 
 	public String getAddressLine1() {
 		return addressLine1;
@@ -85,5 +87,12 @@ public class ShippingInfo {
 			return false;
 		}
 		return true;		
+	}
+	
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
 	}
 }

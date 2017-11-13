@@ -119,7 +119,7 @@ public class PurchaseController {
 		order.setCustomerName(paymentInfo.getCardHolderName());
 		order.setPayment(paymentInfo);
 		order.setShipping(shippingInfo);
-		//TODO: order.setCustomerEmail("");
+		order.setCustomerEmail(shippingInfo.getCustomerEmail());
 		request.getSession().setAttribute("order", order);
 		
 		return "ViewOrder";
