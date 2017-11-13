@@ -112,7 +112,8 @@ public class PurchaseController {
 		stringBuidler.append("Address 2 : " + shippingInfo.getAddressLine2()+ "\n");
 		stringBuidler.append("City : " + shippingInfo.getCity() + "\n");
 		stringBuidler.append("State : " + shippingInfo.getState() + "\n");
-		stringBuidler.append("Zipcode : " + shippingInfo.getZipCode() + "\n");	
+		stringBuidler.append("Zipcode : " + shippingInfo.getZipCode() + "\n");
+		stringBuidler.append("Email Address : " + shippingInfo.getCustomerEmail() + "\n");
 		
 		request.getSession().setAttribute("shippingInfo", stringBuidler.toString());
 		
