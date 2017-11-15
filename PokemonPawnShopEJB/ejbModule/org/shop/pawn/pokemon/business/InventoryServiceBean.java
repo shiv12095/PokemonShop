@@ -61,16 +61,6 @@ public class InventoryServiceBean implements InventoryService {
 
 	@Override
 	public boolean updateInventory(Collection<Item> items) {
-		for(Item item : items) {
-			Item tempItem = entityManager.find(Item.class, item.getId());
-			int newQuantity = Integer.parseInt(tempItem.getQuantity()) - Integer.parseInt(item.getQuantity());
-			if(newQuantity < 0) {
-				return false;
-			}
-			tempItem.setQuantity(Integer.toString(newQuantity));
-			entityManager.persist(tempItem);
-		}
-		entityManager.flush();
 		return true;
 	}
 

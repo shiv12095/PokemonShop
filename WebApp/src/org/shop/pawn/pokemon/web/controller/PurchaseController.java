@@ -39,7 +39,7 @@ public class PurchaseController {
 		for(LineItem listItem : order.getItems()) {
 			if(listItem.getQuantity() > 0) {
 				listItem.setItemId(listItem.getId());
-				listItem.setId(0);
+				listItem.setId(null);
 				tempList.add(listItem);
 			}
 		}

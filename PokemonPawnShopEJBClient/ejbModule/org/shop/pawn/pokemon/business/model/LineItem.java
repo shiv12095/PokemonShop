@@ -22,7 +22,7 @@ public class LineItem implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID")	
-	private int id;
+	private Integer id;
 
 	@Column(name="ITEM_ID")
 	private int itemId;
@@ -33,11 +33,11 @@ public class LineItem implements Serializable{
 	@Column(name="ITEM_QUANTITY")
 	private int quantity;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
