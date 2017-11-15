@@ -57,7 +57,6 @@ public class OrderProcessingServiceBean {
 		for (LineItem listItem : order.getItems()) {
 			items.add(LineItemAdapter.getItem(listItem));
 		}
-		order.setCustomerEmail("abc@example.com");
 		CreditCardPayment ccPayment = new CreditCardPayment();
 		ccPayment.setCardNumber(order.getPayment().getCreditCardNumber());
 		int confirmationNumber = Integer.parseInt(service.getPaymentProcessorPort().processPayment(ccPayment));
